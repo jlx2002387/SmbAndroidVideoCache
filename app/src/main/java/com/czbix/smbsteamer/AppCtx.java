@@ -28,8 +28,8 @@ public class AppCtx extends Application {
     }
     private HttpProxyCacheServer newProxy() {
         return new HttpProxyCacheServer.Builder(this)
-                //.maxCacheSize(1024*1024*64)
                 .cacheDirectory(Utils.getVideoCacheDir(this))
+                .maxCacheSize(12*1024*1024)
                 .build();
     }
 }

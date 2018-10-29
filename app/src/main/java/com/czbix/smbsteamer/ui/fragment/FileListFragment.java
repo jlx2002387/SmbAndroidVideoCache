@@ -20,7 +20,9 @@ import com.danikula.videocache.HttpProxyCacheServer;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -104,12 +106,15 @@ public class FileListFragment extends ListFragment {
         if (!StreamService.isRunning()) {
             getActivity().startService(new Intent(getActivity(), StreamService.class));
         }
-
         myAppliction=(AppCtx) getActivity().getApplication();
         proxy=myAppliction.getProxy(getActivity());
-        proxyUrl=proxy.getProxyUrl(item.getHttpUri().toString(),true);
+        proxyUrl=proxy.getProxyUrl(item.getHttpUri().toString());
+        try {
+            proxyUrl = URLDecoder.decode(proxyUrl,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Uri videoUri=Uri.parse(proxyUrl);
-
         final Intent intent = new Intent(Intent.ACTION_VIEW);
       //  intent.setDataAndType(videoUri, SmbUtils.getMimeType(item.get()));
         Log.v(ARG_SERVER,"===<<<"+videoUri);

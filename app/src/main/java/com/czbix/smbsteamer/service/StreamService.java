@@ -14,7 +14,7 @@ import java.io.IOException;
  * helper methods.
  */
 public class StreamService extends IntentService {
-    private static final int SLEEP_SECONDS = 60 * 1000;
+    private static final int SLEEP_SECONDS = 20 * 1000;
     private static boolean mRunning;
     private static volatile boolean mStop;
 
